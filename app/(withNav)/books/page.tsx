@@ -19,7 +19,7 @@ export default async function page({
       <BookSearch />
       <div className="flex flex-col gap-4 items-center">
         {booksData?.map((book) => (
-          <div className="flex w-[700px]">
+          <div className="flex w-[700px]" key={book?.id}>
             <Link href={`/books/${book.id}`}>
               <Image
                 src={book.cover}
