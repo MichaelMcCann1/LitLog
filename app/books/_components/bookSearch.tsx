@@ -27,6 +27,7 @@ export default function BookSearch() {
           className="w-[400px]"
           name="title"
           defaultValue={searchParams.get("query")?.toString()}
+          placeholder="Search Books"
         />
         <Button type="submit">Search</Button>
       </form>

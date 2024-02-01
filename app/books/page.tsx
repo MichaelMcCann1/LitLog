@@ -14,10 +14,11 @@ export default async function page({
   const booksData = await getBooksList(searchParams.query);
 
   return (
-    <div className="flex flex-col items-center gap-20">
+    <div className="flex flex-col items-center gap-20 pt-10">
+      <h1>Search All Books</h1>
       <BookSearch />
       <div className="flex flex-col gap-4 items-center">
-        {booksData.map((book) => (
+        {booksData?.map((book) => (
           <div className="flex w-[700px]">
             <Link href={`/books/${book.id}`}>
               <Image

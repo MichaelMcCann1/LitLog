@@ -1,11 +1,14 @@
 const ApiPath = "https://www.googleapis.com/books/v1/volumes";
 
 export const getBooksList = async (search: string) => {
+  if (!search) return []
+
   const booksListResponse = await fetch(`${ApiPath}?q=${search}`);
+  console.log(booksListResponse)
   const data = await booksListResponse.json();
 
   const booksList = data?.items as any[];
-  return booksList.map((book) => {
+  return booksList?.map((book) => {
     return {
       id: book?.id,
       title: book?.volumeInfo?.title,
