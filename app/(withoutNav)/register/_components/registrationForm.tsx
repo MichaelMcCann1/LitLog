@@ -15,8 +15,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { createUser } from "@/lib/actions";
 
-const registrationFormSchema = z
+export const registrationFormSchema = z
   .object({
     email: z.string().email(),
     username: z
@@ -48,15 +49,11 @@ export default function RegistrationForm() {
     },
   });
 
-  const handleSubmit = (data: z.infer<typeof registrationFormSchema>) => {
-    console.log(data);
-  };
-
   return (
     <Form {...form}>
       <form
         className="flex flex-col w-[500px] border rounded-sm px-6 py-8 gap-4"
-        onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit(createUser)}
       >
         <FormField
           control={form.control}
