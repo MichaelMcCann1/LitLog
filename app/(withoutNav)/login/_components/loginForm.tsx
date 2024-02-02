@@ -80,7 +80,7 @@ export default function LoginForm() {
           Sign In
         </Button>
         <Link className="text-center mt-4 text-sm" href="/register">
-          Don't have an account?
+          Don&apos;t have an account?
         </Link>
       </form>
     </Form>
