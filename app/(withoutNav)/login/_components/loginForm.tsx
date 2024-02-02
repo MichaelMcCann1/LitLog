@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { logInUser } from "@/lib/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import React, { useState, useTransition } from "react";
@@ -36,10 +37,9 @@ export default function LoginForm() {
   const handleSubmit = (userData: z.infer<typeof loginFormSchema>) => {
     setErrorMessage(undefined);
     startTransition(() => {
-      console.log('hi')
-      // createUser(userData).then((error) => {
-      //   setErrorMessage(error);
-      // });
+      logInUser(userData).then((error) => {
+        setErrorMessage(error);
+      });
     });
   };
 
@@ -77,7 +77,7 @@ export default function LoginForm() {
           )}
         />
         <Button className="mt-8" type="submit" disabled={isPending}>
-          Register
+          Sign In
         </Button>
         <Link className="text-center mt-4 text-sm" href="/register">
           Don't have an account?
