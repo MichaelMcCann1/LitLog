@@ -1,8 +1,6 @@
-import Logo from "@/components/logo/logo";
 import React from "react";
+import LoginForm from "./_components/loginForm";
 
 export default function page() {
-  return (
-    <div>Log In Page</div>
-  );
+  return <LoginForm />;
 }
