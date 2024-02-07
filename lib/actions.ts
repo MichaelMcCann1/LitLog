@@ -127,8 +127,12 @@ export const getBooksList = async (
   search: string
 ) => {
   const googleBookListData = await getGoogleBooksList(search);
-  const googleBookIdArray = googleBookListData.map((book) => book.id);
 
+  if (!googleBookListData.length) {
+    return [];
+  }
+
+  const googleBookIdArray = googleBookListData.map((book) => book.id);
   const vars = googleBookIdArray.map((_, index) => `$${index + 2}`).join(", ");
   const query = `
   SELECT google_book_id, shelf_id, shelf_name, start_reading_date, end_reading_date

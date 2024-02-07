@@ -23,7 +23,11 @@ export const getGoogleBooksList = async (search: string) => {
   const booksListResponse = await fetch(`${ApiPath}?q=${search}`);
   const data = await booksListResponse.json();
 
-  const booksList = data?.items as any[];
+  if (!data?.items) {
+    return []
+  }
+
+  const booksList = data.items as any[];
   return booksList?.map((book) => {
     return {
       id: book?.id,
