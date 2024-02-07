@@ -1,8 +1,11 @@
-import { getBooksList } from "@/lib/googleBooksAPI";
+import { getGoogleBooksList } from "@/lib/googleBooksAPI";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import BookSearch from "./_components/bookSearch";
+import ShelfOrganizer from "./_components/shelfOrganizer";
+import { auth } from "@/auth";
+import { getBooksList, getBookshelves } from "@/lib/actions";
 
 export default async function page({
   searchParams,
@@ -11,7 +14,12 @@ export default async function page({
     query: string;
   };
 }) {
-  const booksData = await getBooksList(searchParams.query);
+  const session = await auth();
+  const booksData = await getBooksList(
+    session?.user?.name,
+    searchParams.query
+  );
+  const shelfData = await getBookshelves(session?.user?.name);
 
   return (
     <div className="flex flex-col items-center gap-20 pt-10">
@@ -19,7 +27,7 @@ export default async function page({
       <BookSearch />
       <div className="flex flex-col gap-4 items-center">
         {booksData?.map((book) => (
-          <div className="flex w-[700px]" key={book?.id}>
+          <div className="flex w-[700px] gap-4" key={book?.id}>
             <Link href={`/books/${book.id}`}>
               <Image
                 src={book.cover}
@@ -37,6 +45,14 @@ export default async function page({
               <p>
                 Rating: {book.averageRating} ({book.ratingsCount})
               </p>
+            </div>
+            <div className="ml-auto">
+              <ShelfOrganizer
+                bookshelves={shelfData}
+                book_id={book.id}
+                user={session?.user}
+                initialAssignedShelf={book.shelfName}
+              />
             </div>
           </div>
         ))}

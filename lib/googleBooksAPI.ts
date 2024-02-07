@@ -1,10 +1,26 @@
 const ApiPath = "https://www.googleapis.com/books/v1/volumes";
 
-export const getBooksList = async (search: string) => {
-  if (!search) return []
+export interface BookData {
+  id: string;
+  title: string;
+  authors: string[];
+  publisher: string;
+  publisherDate: string;
+  pageCount: string;
+  categories: string[];
+  averageRating: string;
+  ratingsCount: string;
+  cover: string;
+  shelfId: string | undefined;
+  shelfName: string | undefined;
+  startReadingDate: string | undefined;
+  endReadingDate: string | undefined; 
+}
+
+export const getGoogleBooksList = async (search: string) => {
+  if (!search) return [];
 
   const booksListResponse = await fetch(`${ApiPath}?q=${search}`);
-  console.log(booksListResponse)
   const data = await booksListResponse.json();
 
   const booksList = data?.items as any[];
@@ -20,7 +36,11 @@ export const getBooksList = async (search: string) => {
       averageRating: book?.volumeInfo?.averageRating,
       ratingsCount: book?.volumeInfo?.ratingsCount,
       cover: book?.volumeInfo?.imageLinks?.thumbnail,
-    };
+      shelfId: undefined,
+      shelfName: undefined,
+      startReadingDate: undefined,
+      endReadingDate: undefined,
+    } as BookData;
   });
 };
 
@@ -40,5 +60,9 @@ export const getBook = async (id: string) => {
     averageRating: book?.volumeInfo?.averageRating,
     ratingsCount: book?.volumeInfo?.ratingsCount,
     cover: book?.volumeInfo?.imageLinks?.small,
-  };
+    shelfId: undefined,
+    shelfName: undefined,
+    startReadingDate: undefined,
+    endReadingDate: undefined,
+  } as BookData;
 };
