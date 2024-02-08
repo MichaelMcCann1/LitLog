@@ -1,8 +1,6 @@
-import { getGoogleBooksList } from "@/lib/googleBooksAPI";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import BookSearch from "./_components/bookSearch";
 import ShelfOrganizer from "./_components/shelfOrganizer";
 import { auth } from "@/auth";
 import { getBooksList, getUsersBookshelves } from "@/lib/actions";
@@ -21,7 +19,6 @@ export default async function page({
   return (
     <div className="flex flex-col items-center gap-20 pt-10">
       <h1>Search All Books</h1>
-      <BookSearch />
       <div className="flex flex-col gap-4 items-center">
         {booksData?.map((book) => (
           <div className="flex w-[700px] gap-4" key={book?.id}>

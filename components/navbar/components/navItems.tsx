@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import BookSearch from "./bookSearch";
 
 const navItems = [
   { text: "Home", href: "/" },
@@ -15,12 +16,12 @@ export default function NavItems() {
   const pathname = usePathname();
 
   return (
-    <div className="flex items-center gap-4 h-full">
+    <div className="flex items-center gap-4 h-full w-full">
       {navItems.map((navItem) => (
         <Link
           key={navItem.text}
           className={cn(
-            "mx-4 border-transparent hover:border-sky-600 h-full flex items-center border-b-4 font-light",
+            "mx-4 border-transparent hover:border-sky-600 h-full flex items-center border-b-4 font-light whitespace-nowrap	",
             {
               "text-sky-600 border-sky-600 font-medium":
                 pathname === navItem.href,
@@ -31,6 +32,7 @@ export default function NavItems() {
           {navItem.text}
         </Link>
       ))}
+      <BookSearch />
     </div>
   );
 }
