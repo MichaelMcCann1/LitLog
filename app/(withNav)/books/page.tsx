@@ -5,7 +5,7 @@ import React from "react";
 import BookSearch from "./_components/bookSearch";
 import ShelfOrganizer from "./_components/shelfOrganizer";
 import { auth } from "@/auth";
-import { getBooksList, getBookshelves } from "@/lib/actions";
+import { getBooksList, getUsersBookshelves } from "@/lib/actions";
 
 export default async function page({
   searchParams,
@@ -15,11 +15,8 @@ export default async function page({
   };
 }) {
   const session = await auth();
-  const booksData = await getBooksList(
-    session?.user?.name,
-    searchParams.query
-  );
-  const shelfData = await getBookshelves(session?.user?.name);
+  const booksData = await getBooksList(session?.user?.name, searchParams.query);
+  const shelfData = await getUsersBookshelves(session?.user?.name);
 
   return (
     <div className="flex flex-col items-center gap-20 pt-10">
@@ -31,7 +28,7 @@ export default async function page({
             <Link href={`/books/${book.id}`}>
               <Image
                 src={book.cover}
-                alt={`${book.title}`}
+                alt={book.title}
                 width={128}
                 height={204}
               />
@@ -52,6 +49,8 @@ export default async function page({
                 book_id={book.id}
                 user={session?.user}
                 initialAssignedShelf={book.shelfName}
+                title={book.title}
+                cover={book.cover}
               />
             </div>
           </div>

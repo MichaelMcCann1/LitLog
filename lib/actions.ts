@@ -9,6 +9,7 @@ import { signIn } from "@/auth";
 import { Book, Bookshelf, User } from "./createTables";
 import { getGoogleBooksList } from "./googleBooksAPI";
 import { groupBy } from "lodash";
+import { revalidatePath } from "next/cache";
 
 export const createUser = async (
   userData: z.infer<typeof registrationFormSchema>
@@ -38,6 +39,8 @@ export const createUser = async (
 
   await addDefaultBookshelves(username, email);
   await logInUser({ email, password });
+
+  revalidatePath("/user");
 };
 
 export const logInUser = async (userData: z.infer<typeof loginFormSchema>) => {
@@ -77,9 +80,13 @@ export const addDefaultBookshelves = async (
   } catch (error) {
     console.log(error);
   }
+
+  revalidatePath("/user");
 };
 
-export const getBookshelves = async (username: string | undefined | null) => {
+export const getUsersBookshelves = async (
+  username: string | undefined | null
+) => {
   if (!username) return;
 
   const { rows } = await sql<Omit<Bookshelf, "username" | "email">>`
@@ -91,13 +98,35 @@ export const getBookshelves = async (username: string | undefined | null) => {
   return rows;
 };
 
+export const getUsersBooks = async (username: string | undefined | null) => {
+  if (!username) return;
+
+  const { rows } = await sql<
+    Pick<Book, "google_book_id" | "shelf_name" | "title" | "cover">
+  >`
+      SELECT google_book_id, shelf_name, title, cover
+      FROM books
+      WHERE username = ${username}
+    `;
+
+  return groupBy(rows, "shelf_name");
+};
+
 export const addBookToShelf = async (data: Omit<Book, "book_id">) => {
-  const { google_book_id, username, email, shelf_id, shelf_name } = data;
+  const {
+    google_book_id,
+    username,
+    email,
+    shelf_id,
+    shelf_name,
+    title,
+    cover,
+  } = data;
 
   try {
     await sql<Book>`
-      INSERT INTO books (google_book_id, username, email, shelf_id, shelf_name)
-      VALUES (${google_book_id}, ${username}, ${email}, ${shelf_id}, ${shelf_name})
+      INSERT INTO books (google_book_id, username, email, shelf_id, shelf_name, title, cover)
+      VALUES (${google_book_id}, ${username}, ${email}, ${shelf_id}, ${shelf_name}, ${title}, ${cover})
       ON CONFLICT (username, google_book_id)
       DO UPDATE SET
         shelf_id = ${shelf_id},
@@ -106,6 +135,8 @@ export const addBookToShelf = async (data: Omit<Book, "book_id">) => {
   } catch (error) {
     console.log(error);
   }
+
+  revalidatePath("/user");
 };
 
 export const removeFromShelf = async (
@@ -120,6 +151,8 @@ export const removeFromShelf = async (
   } catch (error) {
     console.log(error);
   }
+
+  revalidatePath("/user");
 };
 
 export const getBooksList = async (

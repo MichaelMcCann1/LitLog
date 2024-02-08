@@ -23,6 +23,8 @@ export interface Book {
   shelf_name: string;
   start_reading_date?: string;
   end_reading_date?: string;
+  title: string;
+  cover: string;
 }
 
 const createUsersTable = async () => {

@@ -18,6 +18,8 @@ interface Props {
   book_id: string;
   user?: User;
   initialAssignedShelf: string | undefined;
+  title: string;
+  cover: string;
 }
 
 export default function ShelfOrganizer({
@@ -25,6 +27,8 @@ export default function ShelfOrganizer({
   book_id,
   user,
   initialAssignedShelf,
+  title,
+  cover,
 }: Props) {
   const [assignedShelf, setAssignedShelf] = useState<string | undefined>(
     initialAssignedShelf
@@ -56,6 +60,8 @@ export default function ShelfOrganizer({
                   email,
                   shelf_id: shelf.shelf_id,
                   shelf_name: shelf.shelf_name,
+                  title,
+                  cover,
                 });
               });
             }}
