@@ -10,7 +10,7 @@ export default async function Navbar() {
 
   return (
     <div className="sticky z-10 top-0 w-full h-14 px-4 border-b shadow-sm bg-white flex items-center ">
-      <div className="md:max-w-screen-2xl mx-auto flex items-center w-full gap-20">
+      <div className="md:max-w-screen-2xl mx-auto flex items-center w-full gap-20 h-full">
         <Logo />
         <NavItems />
         {session?.user ? <UserProfile /> : <AuthenticateButtons />}

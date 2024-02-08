@@ -9,6 +9,8 @@ interface Props {
 
 export default function LogoutButton({ callback }: Props) {
   return (
-    <DropdownMenuItem onClick={() => callback()}>Sign Out</DropdownMenuItem>
+    <DropdownMenuItem onClick={() => callback()}>
+      <button className="pointer">Sign Out</button>
+    </DropdownMenuItem>
   );
 }

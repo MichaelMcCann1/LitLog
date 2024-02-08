@@ -26,7 +26,10 @@ export default async function page() {
             <p>{shelf.shelf_name}</p>
             <div className="flex gap-4">
               {shelf.bookData?.map((book) => (
-                <Link href={`/books/${book.google_book_id}`}>
+                <Link
+                  key={book.google_book_id}
+                  href={`/books/${book.google_book_id}`}
+                >
                   <Image
                     src={book.cover}
                     alt={book.title}
