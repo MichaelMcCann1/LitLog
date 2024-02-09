@@ -47,7 +47,7 @@ export default function Bookshelf({ bookshelfData }: Props) {
             ))}
           </div>
           <Button asChild className="w-auto">
-            <Link href={`/user/${bookshelfData.shelf_id}`}>
+            <Link href={`/bookshelves/${bookshelfData.shelf_id}`}>
               View All ({bookshelfData.book_count})
             </Link>
           </Button>

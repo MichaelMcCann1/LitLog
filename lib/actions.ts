@@ -40,7 +40,7 @@ export const createUser = async (
   await addDefaultBookshelves(username, email);
   await logInUser({ email, password });
 
-  revalidatePath("/user");
+  revalidatePath("/bookshelves");
 };
 
 export const logInUser = async (userData: z.infer<typeof loginFormSchema>) => {
@@ -81,7 +81,7 @@ export const addDefaultBookshelves = async (
     console.log(error);
   }
 
-  revalidatePath("/user");
+  revalidatePath("/bookshelves");
 };
 
 export const getUsersBookshelves = async (
@@ -160,7 +160,7 @@ export const addBookToShelf = async (data: Omit<Book, "book_id">) => {
     console.log(error);
   }
 
-  revalidatePath("/user");
+  revalidatePath("/bookshelves");
 };
 
 export const removeFromShelf = async (
@@ -176,7 +176,7 @@ export const removeFromShelf = async (
     console.log(error);
   }
 
-  revalidatePath("/user");
+  revalidatePath("/bookshelves");
 };
 
 export const getBooksList = async (

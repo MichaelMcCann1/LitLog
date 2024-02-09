@@ -7,7 +7,7 @@ import React from "react";
 
 export const navItems = [
   { text: "Home", href: "/" },
-  { text: "My Bookshelves", href: "/user" },
+  { text: "My Bookshelves", href: "/bookshelves" },
   { text: "My Stats", href: "/stats" },
 ];
 
