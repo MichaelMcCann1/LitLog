@@ -90,10 +90,20 @@ export const getUsersBookshelves = async (
   if (!username) return;
 
   const { rows } = await sql<Omit<Bookshelf, "username" | "email">>`
-      SELECT shelf_id, shelf_name
-      FROM bookshelves
-      WHERE username = ${username}
-    `;
+    SELECT
+      shelf_id,
+      shelf_name,
+      (
+        SELECT COUNT(*)
+        FROM books
+        WHERE books.shelf_id = bookshelves.shelf_id
+          AND books.username = bookshelves.username
+      ) AS book_count
+    FROM
+      bookshelves
+    WHERE
+      bookshelves.username = ${username};
+  `;
 
   return rows;
 };
@@ -104,10 +114,24 @@ export const getUsersBooks = async (username: string | undefined | null) => {
   const { rows } = await sql<
     Pick<Book, "google_book_id" | "shelf_name" | "title" | "cover">
   >`
-      SELECT google_book_id, shelf_name, title, cover
+    WITH RankedBooks AS (
+      SELECT
+        google_book_id,
+        shelf_name,
+        title,
+        cover,
+        ROW_NUMBER() OVER (PARTITION BY shelf_name ORDER BY google_book_id) AS row_num
       FROM books
       WHERE username = ${username}
-    `;
+    )
+    SELECT
+      google_book_id,
+      shelf_name,
+      title,
+      cover
+    FROM RankedBooks
+    WHERE row_num <= 5;
+  `;
 
   return groupBy(rows, "shelf_name");
 };

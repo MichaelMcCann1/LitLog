@@ -16,7 +16,7 @@ export default async function Navbar() {
         <Logo />
         <NavItems />
         <BookSearch />
-        <div className="hidden md:block">
+        <div className="hidden md:flex ml-auto ">
           {session?.user ? <UserProfile /> : <AuthenticateButtons />}
         </div>
         <NavMenu />

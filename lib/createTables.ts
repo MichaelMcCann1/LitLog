@@ -12,6 +12,7 @@ export interface Bookshelf {
   username: string;
   email: string;
   shelf_name: string;
+  book_count: number;
 }
 
 export interface Book {
