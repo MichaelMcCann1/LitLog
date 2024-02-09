@@ -5,7 +5,7 @@ import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import bcrypt from "bcrypt";
 import { loginFormSchema } from "@/app/(withoutNav)/login/_components/loginForm";
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { Book, Bookshelf, User } from "./createTables";
 import { getGoogleBooksList } from "./googleBooksAPI";
 import { groupBy } from "lodash";
@@ -195,4 +195,8 @@ export const getBooksList = async (
       return book;
     }
   });
+};
+
+export const logoutButtonCallback = async () => {
+  await signOut();
 };

@@ -34,7 +34,7 @@ export default function BookSearch() {
   return (
     <form
       action={handleSubmit}
-      className="flex items-center w-full rounded-lg relative h-9 ml-8 max-w-[500px]"
+      className="flex items-center w-full rounded-lg relative h-9 md:max-w-[500px] "
     >
       <Input
         className="w-full rounded-lg h-full"

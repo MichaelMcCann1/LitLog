@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import LogoutButton from "../components/logoutButton";
+import LogoutButton from "../components/navBarComponents/logoutButton";
 import userEvent from "@testing-library/user-event";
 import {
   DropdownMenu,

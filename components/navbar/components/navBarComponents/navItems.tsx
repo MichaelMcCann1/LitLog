@@ -4,9 +4,8 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import BookSearch from "./bookSearch";
 
-const navItems = [
+export const navItems = [
   { text: "Home", href: "/" },
   { text: "My Bookshelves", href: "/user" },
   { text: "My Stats", href: "/stats" },
@@ -16,12 +15,12 @@ export default function NavItems() {
   const pathname = usePathname();
 
   return (
-    <div className="flex items-center gap-4 h-full w-full">
+    <nav className="items-center lg:gap-12 gap-8 h-full hidden md:flex">
       {navItems.map((navItem) => (
         <Link
           key={navItem.text}
           className={cn(
-            "mx-4 border-transparent hover:border-sky-600 h-full flex items-center border-b-4 font-light whitespace-nowrap	",
+            "border-transparent hover:border-sky-600 h-full flex items-center border-b-4 font-light whitespace-nowrap	lg:text-base text-sm",
             {
               "text-sky-600 border-sky-600 font-medium":
                 pathname === navItem.href,
@@ -32,7 +31,6 @@ export default function NavItems() {
           {navItem.text}
         </Link>
       ))}
-      <BookSearch />
-    </div>
+    </nav>
   );
 }

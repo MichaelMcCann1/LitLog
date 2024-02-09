@@ -6,14 +6,9 @@ import {
   DropdownMenuContent,
   DropdownMenu,
 } from "@/components/ui/dropdown-menu";
-import { signOut } from "@/auth";
 import LogoutButton from "./logoutButton";
 import Image from "next/image";
-
-const logoutButtonCallback = async () => {
-  "use server";
-  await signOut();
-};
+import { logoutButtonCallback } from "@/lib/actions";
 
 export default async function UserProfile() {
   const session = await auth();
