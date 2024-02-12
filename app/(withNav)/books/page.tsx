@@ -1,9 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
-import ShelfOrganizer from "./_components/shelfOrganizer";
 import { auth } from "@/auth";
 import { getBooksList, getUsersBookshelves } from "@/lib/actions";
+import BookBox from "@/components/bookBox/bookBox";
 
 export default async function page({
   searchParams,
@@ -21,36 +19,12 @@ export default async function page({
       <h1>Search All Books</h1>
       <div className="flex flex-col gap-4 items-center">
         {booksData?.map((book) => (
-          <div className="flex w-[700px] gap-4" key={book?.id}>
-            <Link href={`/books/${book.id}`}>
-              <Image
-                src={book.cover}
-                alt={book.title}
-                width={128}
-                height={204}
-              />
-            </Link>
-            <div className="flex flex-col">
-              <Link href={`/books/${book.id}`}>{book.title}</Link>
-              <p>{book.authors}</p>
-              <p>Pages: {book.pageCount}</p>
-              <p>Publisher: {book.publisher}</p>
-              <p>Publication Date: {book.publisherDate}</p>
-              <p>
-                Rating: {book.averageRating} ({book.ratingsCount})
-              </p>
-            </div>
-            <div className="ml-auto">
-              <ShelfOrganizer
-                bookshelves={shelfData}
-                book_id={book.id}
-                user={session?.user}
-                initialAssignedShelf={book.shelfName}
-                title={book.title}
-                cover={book.cover}
-              />
-            </div>
-          </div>
+          <BookBox
+            key={book.id}
+            session={session}
+            book={book}
+            shelfData={shelfData}
+          />
         ))}
       </div>
     </div>
