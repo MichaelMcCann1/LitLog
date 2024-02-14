@@ -224,3 +224,21 @@ export const getBooksList = async (
 export const logoutButtonCallback = async () => {
   await signOut();
 };
+
+interface BookshelfName {
+  shelf_name: string;
+}
+
+export const getBookShelfName = async (
+  username: string | undefined | null,
+  shelf_id: string
+) => {
+  if (!username) return;
+
+  const { rows } = await sql<BookshelfName>`
+    SELECT shelf_name FROM bookshelves
+    WHERE username = ${username} AND shelf_id = ${shelf_id}
+  `;
+
+  return rows[0];
+};

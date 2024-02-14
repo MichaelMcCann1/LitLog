@@ -1,7 +1,5 @@
 import { auth } from "@/auth";
 import { getUsersBooks, getUsersBookshelves } from "@/lib/actions";
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import Bookshelf from "./_components/bookshelf";
 

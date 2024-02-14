@@ -4,6 +4,7 @@ export interface BookData {
   id: string;
   title: string;
   authors: string[];
+  description: string;
   publisher: string;
   publisherDate: string;
   pageCount: string;
