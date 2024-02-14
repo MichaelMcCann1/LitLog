@@ -242,3 +242,17 @@ export const getBookShelfName = async (
 
   return rows[0];
 };
+
+export const getUsersBookData = async (
+  username: string | undefined | null,
+  google_book_id: string
+) => {
+  if (!username) return;
+
+  const { rows } = await sql<Pick<Book, "shelf_name">>`
+    SELECT shelf_name FROM books
+    WHERE username = ${username} AND google_book_id = ${google_book_id}
+  `;
+
+  return rows[0];
+};

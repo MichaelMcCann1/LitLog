@@ -11,7 +11,9 @@ export default function BookCategories({ categories }: Props) {
       <div>
         <ul>
           {categories?.map((category) => (
-            <li className="list-disc list-inside">{category}</li>
+            <li key={category} className="list-disc list-inside">
+              {category}
+            </li>
           ))}
         </ul>
       </div>

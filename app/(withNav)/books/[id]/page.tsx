@@ -5,6 +5,9 @@ import BookDescription from "./_components/bookDescription";
 import { formatAuthors, formatPublicationDate } from "@/lib/utils";
 import BookCategories from "./_components/bookCategories";
 import StarRating from "@/components/starRating/starRating";
+import ShelfOrganizer from "@/components/bookBox/components/shelfOrganizer";
+import { auth } from "@/auth";
+import { getUsersBookData, getUsersBookshelves } from "@/lib/actions";
 
 export default async function page({
   params,
@@ -13,18 +16,34 @@ export default async function page({
     id: string;
   };
 }) {
+  const session = await auth();
   const bookData = await getBook(params.id);
+  const bookshelves = await getUsersBookshelves(session?.user?.name);
+  const usersBookData = await getUsersBookData(
+    session?.user?.name,
+    bookData.id
+  );
 
   return (
     <div className="py-10 px-2 flex justify-center">
       <div className="flex gap-8 max-w-[900px] items-start">
-        <Image
-          src={bookData.cover}
-          alt={bookData.title}
-          width={300}
-          height={450}
-          className="flex-shrink-0 shadow-lg"
-        />
+        <div className="flex flex-col">
+          <Image
+            src={bookData.cover}
+            alt={bookData.title}
+            width={300}
+            height={450}
+            className="shadow-lg"
+          />
+          <ShelfOrganizer
+            initialAssignedShelf={usersBookData?.shelf_name}
+            bookshelves={bookshelves}
+            book_id={bookData.id}
+            title={bookData.title}
+            cover={bookData.cover}
+            user={session?.user}
+          />
+        </div>
         <div className="flex flex-col">
           <p className="text-3xl font-medium">{bookData.title}</p>
           <p className="text-xl py-2">{formatAuthors(bookData.authors)}</p>
