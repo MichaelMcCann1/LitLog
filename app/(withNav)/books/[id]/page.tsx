@@ -2,12 +2,11 @@ import { getBook } from "@/lib/googleBooksAPI";
 import Image from "next/image";
 import React from "react";
 import BookDescription from "./_components/bookDescription";
-import { formatAuthors, formatPublicationDate } from "@/lib/utils";
 import BookCategories from "./_components/bookCategories";
-import StarRating from "@/components/starRating/starRating";
 import ShelfOrganizer from "@/components/bookBox/components/shelfOrganizer";
 import { auth } from "@/auth";
 import { getUsersBookData, getUsersBookshelves } from "@/lib/actions";
+import BookInfo from "./_components/bookInfo";
 
 export default async function page({
   params,
@@ -45,25 +44,15 @@ export default async function page({
           />
         </div>
         <div className="flex flex-col">
-          <p className="text-3xl font-medium">{bookData.title}</p>
-          <p className="text-xl py-2">{formatAuthors(bookData.authors)}</p>
-          <div className="pb-2">
-            <StarRating
-              rating={bookData.averageRating}
-              ratingsCount={bookData.ratingsCount}
-            />
-          </div>
-          <div className="flex flex-col font-light pb-4 text-sm">
-            <p>{bookData.pageCount} pages</p>
-            <p>
-              <span className="font-normal">Publisher:</span>{" "}
-              {bookData.publisher}
-            </p>
-            <p>
-              <span className="font-normal">Publication Date:</span>{" "}
-              {formatPublicationDate(bookData.publisherDate)}
-            </p>
-          </div>
+          <BookInfo
+            title={bookData.title}
+            authors={bookData.authors}
+            averageRating={bookData.averageRating}
+            ratingsCount={bookData.ratingsCount}
+            pageCount={bookData.pageCount}
+            publisher={bookData.publisher}
+            publisherDate={bookData.publisherDate}
+          />
           <div className="flex flex-col gap-4">
             {bookData.description && (
               <BookDescription description={bookData.description} />

@@ -40,9 +40,9 @@ export default function ShelfOrganizer({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="border p-2 bg-sky-600 text-white flex gap-4 items-center">
+      <DropdownMenuTrigger className="border p-2 bg-sky-600 text-white flex gap-4 items-center whitespace-nowrap">
           {assignedShelf || "Add to Bookshelf"}
-          <ChevronDown size={18}/>
+          <ChevronDown size={18} className="ml-auto"/>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Add to Bookshelf</DropdownMenuLabel>

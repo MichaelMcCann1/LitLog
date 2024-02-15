@@ -18,7 +18,7 @@ export const formatAuthors = (authors: string[]) => {
 
     output = output + `${author}, `;
   });
-  output = output.substring(0, output.length - 2)
+  output = output.substring(0, output.length - 2);
   return output;
 };
 
@@ -30,5 +30,11 @@ export const formatPublicationDate = (date: string) => {
     return DateTime.fromFormat(date, "y-LL").toFormat("LLL y");
   }
 
-  return date
+  return date;
+};
+
+export const getSearchResultsText = (query: string | undefined, dataLength: number) => {
+  if (!query) return "Search All Books";
+  if (dataLength) return `Search results for ${query}`;
+  return `No results for ${query}`;
 };

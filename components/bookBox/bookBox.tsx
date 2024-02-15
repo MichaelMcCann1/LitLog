@@ -5,6 +5,7 @@ import ShelfOrganizer from "./components/shelfOrganizer";
 import { Session } from "next-auth";
 import { BookData } from "@/lib/googleBooksAPI";
 import { Bookshelf } from "@/lib/createTables";
+import BookInfo from "@/app/(withNav)/books/[id]/_components/bookInfo";
 
 interface Props {
   shelfData: Omit<Bookshelf, "username" | "email">[] | undefined;
@@ -14,20 +15,23 @@ interface Props {
 
 export default function BookBox({ book, shelfData, session }: Props) {
   return (
-    <div className="flex w-[700px] gap-4" key={book?.id}>
+    <div
+      className="flex w-[800px] gap-4 border py-6 px-4 rounded"
+      key={book?.id}
+    >
       <Link href={`/books/${book.id}`}>
         <Image src={book.cover} alt={book.title} width={128} height={204} />
       </Link>
-      <div className="flex flex-col">
-        <Link href={`/books/${book.id}`}>{book.title}</Link>
-        <p>{book.authors}</p>
-        <p>Pages: {book.pageCount}</p>
-        <p>Publisher: {book.publisher}</p>
-        <p>Publication Date: {book.publisherDate}</p>
-        <p>
-          Rating: {book.averageRating} ({book.ratingsCount})
-        </p>
-      </div>
+      <BookInfo
+        title={book.title}
+        authors={book.authors}
+        pageCount={book.pageCount}
+        averageRating={book.averageRating}
+        ratingsCount={book.ratingsCount}
+        publisher={book.publisher}
+        publisherDate={book.publisherDate}
+        id={book.id}
+      />
       <div className="ml-auto">
         <ShelfOrganizer
           bookshelves={shelfData}
