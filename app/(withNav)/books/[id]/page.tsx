@@ -27,7 +27,7 @@ export default async function page({
   return (
     <div className="py-10 px-2 flex justify-center">
       <div className="flex gap-8 max-w-[900px] items-start">
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-2 flex-shrink-0">
           <Image
             src={bookData.cover}
             alt={bookData.title}
