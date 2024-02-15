@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
+import { X } from "lucide-react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -45,13 +45,13 @@ export default function BookSearch() {
         onChange={(e) => setInput(e.target.value)}
       />
       <Button
-        className="p-2 rounded-lg absolute right-1"
+        className=" absolute right-0 h-9 w-9 text-sky-600 hover:text-sky-600"
         size="icon"
         variant="ghost"
         type="reset"
         onClick={() => setInput("")}
       >
-        <Image src="/close-icon.svg" alt="clear input" height={20} width={20} />
+        <X/>
       </Button>
     </form>
   );

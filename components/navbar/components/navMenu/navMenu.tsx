@@ -1,18 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import React from "react";
-import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import NavMenuItems from "./components/navMenuItems";
 import UserInfo from "./components/userInfo";
+import { Menu } from "lucide-react";
 
 export default function NavMenu() {
   return (
     <div className="md:hidden ml-auto h-10">
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="ghost" className="ml-auto relative">
-            <Image src="/menu.svg" alt="Navigation Menu" fill />
+          <Button variant="ghost" className="ml-auto" size='icon'>
+            <Menu size={34}/>
           </Button>
         </SheetTrigger>
         <SheetContent>

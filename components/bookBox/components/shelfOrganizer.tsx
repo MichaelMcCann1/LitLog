@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { addBookToShelf, removeFromShelf } from "@/lib/actions";
 import { Bookshelf } from "@/lib/createTables";
+import { ArrowDown, ChevronDown } from "lucide-react";
 import { User } from "next-auth";
 import { useState, useTransition } from "react";
 
@@ -39,8 +40,9 @@ export default function ShelfOrganizer({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="border p-2">
-        {assignedShelf || "Add to Bookshelf"}
+      <DropdownMenuTrigger className="border p-2 bg-sky-600 text-white flex gap-4 items-center">
+          {assignedShelf || "Add to Bookshelf"}
+          <ChevronDown size={18}/>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Add to Bookshelf</DropdownMenuLabel>
