@@ -45,30 +45,32 @@ export default function ShelfOrganizer({
       <DropdownMenuContent>
         <DropdownMenuLabel>Add to Bookshelf</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {bookshelves?.map((shelf) => (
-          <DropdownMenuItem
-            key={shelf.shelf_id}
-            disabled={!username || isPending}
-            onClick={() => {
-              if (!username || !email) return;
-              setAssignedShelf(shelf.shelf_name);
+        {bookshelves
+          ?.filter((shelf) => shelf.shelf_name !== assignedShelf)
+          ?.map((shelf) => (
+            <DropdownMenuItem
+              key={shelf.shelf_id}
+              disabled={!username || isPending}
+              onClick={() => {
+                if (!username || !email) return;
+                setAssignedShelf(shelf.shelf_name);
 
-              startTransition(() => {
-                addBookToShelf({
-                  google_book_id: book_id,
-                  username,
-                  email,
-                  shelf_id: shelf.shelf_id,
-                  shelf_name: shelf.shelf_name,
-                  title,
-                  cover,
+                startTransition(() => {
+                  addBookToShelf({
+                    google_book_id: book_id,
+                    username,
+                    email,
+                    shelf_id: shelf.shelf_id,
+                    shelf_name: shelf.shelf_name,
+                    title,
+                    cover,
+                  });
                 });
-              });
-            }}
-          >
-            {shelf.shelf_name}
-          </DropdownMenuItem>
-        ))}
+              }}
+            >
+              {shelf.shelf_name}
+            </DropdownMenuItem>
+          ))}
         {assignedShelf && (
           <DropdownMenuItem
             disabled={!username || isPending}
