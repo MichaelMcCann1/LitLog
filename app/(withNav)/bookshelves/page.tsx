@@ -16,8 +16,8 @@ export default async function page() {
   });
 
   return (
-    <div className="flex flex-col gap-20 items-center">
-      <h1 className="text-3xl pt-10">My Bookshelves</h1>
+    <div className="flex flex-col gap-20 items-center py-10">
+      <h1 className="text-3xl">My Bookshelves</h1>
       <div className="flex flex-col gap-8">
         {bookshelvesWithBookData &&
           bookshelvesWithBookData.map((shelf) => (
