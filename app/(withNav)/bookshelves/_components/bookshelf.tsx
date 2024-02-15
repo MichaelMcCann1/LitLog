@@ -21,7 +21,7 @@ export default function Bookshelf({ bookshelfData }: Props) {
   return (
     <div
       key={bookshelfData.shelf_id}
-      className="border border-gray-300 py-4 px-8 rounded-lg flex flex-col gap-8 w-[800px] items-center"
+      className="border border-gray-300 py-4 px-6 rounded-lg flex flex-col gap-8 max-w-[850px] items-center"
     >
       <p className="font-medium text-xl">{bookshelfData.shelf_name}</p>
       {!bookshelfData.bookData?.length ? (
@@ -30,7 +30,7 @@ export default function Bookshelf({ bookshelfData }: Props) {
         </div>
       ) : (
         <>
-          <div className="flex gap-8 justify-center">
+          <div className="flex gap-6 justify-center flex-wrap">
             {bookshelfData.bookData?.map((book) => (
               <Link
                 key={book.google_book_id}
