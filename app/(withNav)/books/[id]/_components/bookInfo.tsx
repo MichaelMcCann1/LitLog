@@ -31,9 +31,9 @@ export default function BookInfo({
           {title}
         </Link>
       ) : (
-        <p className="text-3xl font-medium">{title}</p>
+        <p className="text-xl md:text-3xl font-medium">{title}</p>
       )}
-      <p className="text-xl py-2">{formatAuthors(authors)}</p>
+      <p className="md:text-xl py-2">{formatAuthors(authors)}</p>
       <div className="pb-2">
         <StarRating rating={averageRating} ratingsCount={ratingsCount} />
       </div>

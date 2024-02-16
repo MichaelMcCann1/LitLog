@@ -24,9 +24,9 @@ export default async function page({
   );
 
   return (
-    <div className="py-10 px-4 flex justify-center">
-      <div className="flex gap-8 max-w-[900px] items-start">
-        <div className="flex flex-col gap-2 flex-shrink-0">
+    <div className="py-10 px-3 flex justify-center flex-col md:flex-row gap-4">
+      <div className="flex md:gap-8 gap-3 max-w-[900px] items-start">
+        <div className="flex flex-col gap-2 flex-[1.1_1_0] md:flex-[0_0_auto]">
           <Image
             src={bookData.cover}
             alt={bookData.title}
@@ -34,16 +34,18 @@ export default async function page({
             height={450}
             className="shadow-lg"
           />
-          <ShelfOrganizer
-            initialAssignedShelf={usersBookData?.shelf_name}
-            bookshelves={bookshelves}
-            book_id={bookData.id}
-            title={bookData.title}
-            cover={bookData.cover}
-            user={session?.user}
-          />
+          <div className="flex-col hidden md:flex">
+            <ShelfOrganizer
+              initialAssignedShelf={usersBookData?.shelf_name}
+              bookshelves={bookshelves}
+              book_id={bookData.id}
+              title={bookData.title}
+              cover={bookData.cover}
+              user={session?.user}
+            />
+          </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col md:flex-1 flex-[2]">
           <BookInfo
             title={bookData.title}
             authors={bookData.authors}
@@ -53,7 +55,7 @@ export default async function page({
             publisher={bookData.publisher}
             publisherDate={bookData.publisherDate}
           />
-          <div className="flex flex-col gap-4">
+          <div className="hidden md:flex flex-col gap-4">
             {bookData.description && (
               <BookDescription description={bookData.description} />
             )}
@@ -61,6 +63,26 @@ export default async function page({
               <BookCategories categories={bookData.categories} />
             )}
           </div>
+          <div className="md:hidden flex flex-col">
+            <ShelfOrganizer
+              initialAssignedShelf={usersBookData?.shelf_name}
+              bookshelves={bookshelves}
+              book_id={bookData.id}
+              title={bookData.title}
+              cover={bookData.cover}
+              user={session?.user}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col md:hidden">
+        <div className="flex flex-col gap-4">
+          {bookData.description && (
+            <BookDescription description={bookData.description} />
+          )}
+          {bookData.categories && (
+            <BookCategories categories={bookData.categories} />
+          )}
         </div>
       </div>
     </div>
