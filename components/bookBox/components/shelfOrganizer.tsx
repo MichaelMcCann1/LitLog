@@ -9,27 +9,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { addBookToShelf, removeFromShelf } from "@/lib/actions";
-import { Bookshelf } from "@/lib/createTables";
-import { ArrowDown, ChevronDown } from "lucide-react";
+import { Book, Bookshelf } from "@/lib/createTables";
+import { ChevronDown } from "lucide-react";
 import { User } from "next-auth";
 import { useState, useTransition } from "react";
 
 interface Props {
+  bookData: Book;
   bookshelves: Omit<Bookshelf, "username" | "email">[] | undefined;
-  book_id: string;
   user?: User;
   initialAssignedShelf: string | undefined;
-  title: string;
-  cover: string;
 }
 
 export default function ShelfOrganizer({
+  bookData,
   bookshelves,
-  book_id,
-  user,
   initialAssignedShelf,
-  title,
-  cover,
+  user,
 }: Props) {
   const [assignedShelf, setAssignedShelf] = useState<string | undefined>(
     initialAssignedShelf
@@ -41,8 +37,8 @@ export default function ShelfOrganizer({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="border p-2 bg-sky-600 text-white flex gap-4 items-center whitespace-nowrap">
-          {assignedShelf || "Add to Bookshelf"}
-          <ChevronDown size={18} className="ml-auto"/>
+        {assignedShelf || "Add to Bookshelf"}
+        <ChevronDown size={18} className="ml-auto" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Add to Bookshelf</DropdownMenuLabel>
@@ -59,13 +55,21 @@ export default function ShelfOrganizer({
 
                 startTransition(() => {
                   addBookToShelf({
-                    google_book_id: book_id,
+                    google_book_id: bookData.google_book_id,
                     username,
                     email,
                     shelf_id: shelf.shelf_id,
                     shelf_name: shelf.shelf_name,
-                    title,
-                    cover,
+                    title: bookData.title,
+                    cover: bookData.cover,
+                    authors: bookData.authors,
+                    page_count: bookData.page_count,
+                    average_rating: bookData.average_rating,
+                    ratings_count: bookData.ratings_count,
+                    publisher: bookData.publisher,
+                    publisher_date: bookData.publisher_date,
+                    description: bookData.description,
+                    categories: bookData.categories,
                   });
                 });
               }}
@@ -81,7 +85,7 @@ export default function ShelfOrganizer({
               setAssignedShelf(undefined);
 
               startTransition(() => {
-                removeFromShelf(book_id, username);
+                removeFromShelf(bookData.google_book_id, username);
               });
             }}
           >

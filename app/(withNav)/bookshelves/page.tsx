@@ -18,7 +18,7 @@ export default async function page() {
   return (
     <div className="flex flex-col gap-20 items-center py-10 px-4">
       <h1 className="text-3xl">My Bookshelves</h1>
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8 w-full items-center">
         {bookshelvesWithBookData &&
           bookshelvesWithBookData.map((shelf) => (
             <Bookshelf bookshelfData={shelf} key={shelf.shelf_id} />

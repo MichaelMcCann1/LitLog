@@ -145,12 +145,26 @@ export const addBookToShelf = async (data: Omit<Book, "book_id">) => {
     shelf_name,
     title,
     cover,
+    authors,
+    page_count,
+    average_rating,
+    ratings_count,
+    publisher,
+    publisher_date,
+    description,
+    categories,
   } = data;
 
   try {
+    const stringifiedAuthors = JSON.stringify(authors)
+      .replace("[", "{")
+      .replace("]", "}");
+    const stringifiedCategories = JSON.stringify(categories)
+      .replace("[", "{")
+      .replace("]", "}");
     await sql<Book>`
-      INSERT INTO books (google_book_id, username, email, shelf_id, shelf_name, title, cover)
-      VALUES (${google_book_id}, ${username}, ${email}, ${shelf_id}, ${shelf_name}, ${title}, ${cover})
+      INSERT INTO books (google_book_id, username, email, shelf_id, shelf_name, title, cover, authors, page_count, average_rating, ratings_count, publisher, publisher_date, description, categories)
+      VALUES (${google_book_id}, ${username}, ${email}, ${shelf_id}, ${shelf_name}, ${title}, ${cover}, ${stringifiedAuthors}, ${page_count}, ${average_rating}, ${ratings_count}, ${publisher}, ${publisher_date}, ${description}, ${stringifiedCategories})
       ON CONFLICT (username, google_book_id)
       DO UPDATE SET
         shelf_id = ${shelf_id},
@@ -189,7 +203,9 @@ export const getBooksList = async (
     return [];
   }
 
-  const googleBookIdArray = googleBookListData.map((book) => book.id);
+  const googleBookIdArray = googleBookListData.map(
+    (book) => book.google_book_id
+  );
   const vars = googleBookIdArray.map((_, index) => `$${index + 2}`).join(", ");
   const query = `
   SELECT google_book_id, shelf_id, shelf_name, start_reading_date, end_reading_date
@@ -205,19 +221,15 @@ export const getBooksList = async (
   const groupedRows = groupBy(rows, "google_book_id");
 
   return googleBookListData.map((book) => {
-    const assignedBook = groupedRows?.[book.id]?.[0];
+    const assignedBook = groupedRows?.[book.google_book_id]?.[0];
 
-    if (assignedBook) {
-      return {
-        ...book,
-        shelfId: assignedBook.shelf_id,
-        shelfName: assignedBook.shelf_name,
-        startReadingDate: assignedBook.start_reading_date,
-        endReadingDate: assignedBook.end_reading_date,
-      };
-    } else {
-      return book;
-    }
+    return {
+      ...book,
+      shelf_id: assignedBook?.shelf_id,
+      shelf_name: assignedBook?.shelf_name,
+      start_reading_date: assignedBook?.start_reading_date,
+      end_reading_date: assignedBook?.end_reading_date,
+    } as Book;
   });
 };
 
@@ -255,4 +267,18 @@ export const getUsersBookData = async (
   `;
 
   return rows[0];
+};
+
+export const getBooksFromShelf = async (
+  username: string | undefined | null,
+  shelf_id: string
+) => {
+  if (!username) return;
+
+  const { rows } = await sql<Book>`
+    SELECT * FROM books
+    WHERE username = ${username} AND shelf_id = ${shelf_id}
+  `;
+
+  return rows;
 };

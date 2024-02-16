@@ -26,6 +26,14 @@ export interface Book {
   end_reading_date?: string;
   title: string;
   cover: string;
+  authors: string[];
+  publisher: string;
+  publisher_date: string;
+  page_count: string;
+  average_rating: string;
+  ratings_count: string;
+  description: string;
+  categories: string[];
 }
 
 const createUsersTable = async () => {

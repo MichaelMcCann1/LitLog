@@ -21,7 +21,7 @@ export default function Bookshelf({ bookshelfData }: Props) {
   return (
     <div
       key={bookshelfData.shelf_id}
-      className="border border-gray-300 py-4 px-6 rounded-lg flex flex-col gap-8 max-w-[850px] items-center"
+      className="border border-gray-300 py-4 px-6 rounded-lg flex flex-col gap-8 max-w-[850px] items-center w-full"
     >
       <p className="font-medium text-xl">{bookshelfData.shelf_name}</p>
       {!bookshelfData.bookData?.length ? (

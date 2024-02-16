@@ -17,13 +17,13 @@ export default async function page({
 
   return (
     <div className="flex flex-col items-center gap-12 py-12 px-4">
-      <h1 className="text-3xl font-medium">
+      <h1 className="text-xl md:text-3xl font-medium">
         {getSearchResultsText(searchParams.query, booksData.length)}
       </h1>
       <div className="flex flex-col gap-4 items-center">
         {booksData?.map((book) => (
           <BookBox
-            key={book.id}
+            key={book.google_book_id}
             session={session}
             book={book}
             shelfData={shelfData}

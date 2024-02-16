@@ -1,4 +1,4 @@
-import { getBook } from "@/lib/googleBooksAPI";
+import { getGoogleBookData } from "@/lib/googleBooksAPI";
 import Image from "next/image";
 import React from "react";
 import BookDescription from "./_components/bookDescription";
@@ -16,11 +16,11 @@ export default async function page({
   };
 }) {
   const session = await auth();
-  const bookData = await getBook(params.id);
+  const bookData = await getGoogleBookData(params.id);
   const bookshelves = await getUsersBookshelves(session?.user?.name);
   const usersBookData = await getUsersBookData(
     session?.user?.name,
-    bookData.id
+    bookData.google_book_id
   );
 
   return (
@@ -38,10 +38,8 @@ export default async function page({
             <ShelfOrganizer
               initialAssignedShelf={usersBookData?.shelf_name}
               bookshelves={bookshelves}
-              book_id={bookData.id}
-              title={bookData.title}
-              cover={bookData.cover}
               user={session?.user}
+              bookData={bookData}
             />
           </div>
         </div>
@@ -49,11 +47,11 @@ export default async function page({
           <BookInfo
             title={bookData.title}
             authors={bookData.authors}
-            averageRating={bookData.averageRating}
-            ratingsCount={bookData.ratingsCount}
-            pageCount={bookData.pageCount}
+            averageRating={bookData.average_rating}
+            ratingsCount={bookData.ratings_count}
+            pageCount={bookData.page_count}
             publisher={bookData.publisher}
-            publisherDate={bookData.publisherDate}
+            publisherDate={bookData.publisher_date}
           />
           <div className="hidden md:flex flex-col gap-4">
             {bookData.description && (
@@ -67,10 +65,8 @@ export default async function page({
             <ShelfOrganizer
               initialAssignedShelf={usersBookData?.shelf_name}
               bookshelves={bookshelves}
-              book_id={bookData.id}
-              title={bookData.title}
-              cover={bookData.cover}
               user={session?.user}
+              bookData={bookData}
             />
           </div>
         </div>

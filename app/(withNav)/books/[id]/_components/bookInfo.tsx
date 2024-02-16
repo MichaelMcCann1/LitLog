@@ -27,25 +27,29 @@ export default function BookInfo({
   return (
     <div className="flex flex-col">
       {id ? (
-        <Link href={`/books/${id}`} className="text-2xl font-medium">
+        <Link href={`/books/${id}`} className="text-xl md:text-2xl font-medium">
           {title}
         </Link>
       ) : (
-        <p className="text-xl md:text-3xl font-medium">{title}</p>
+        <p className="text-xl md:text-2xl font-medium">{title}</p>
       )}
       <p className="md:text-xl py-2">{formatAuthors(authors)}</p>
       <div className="pb-2">
         <StarRating rating={averageRating} ratingsCount={ratingsCount} />
       </div>
       <div className="flex flex-col font-light pb-4 text-sm">
-        <p>{pageCount} pages</p>
-        <p>
-          <span className="font-normal">Publisher:</span> {publisher}
-        </p>
-        <p>
-          <span className="font-normal">Publication Date:</span>{" "}
-          {formatPublicationDate(publisherDate)}
-        </p>
+        {!!pageCount && <p>{pageCount} pages</p>}
+        {publisher && (
+          <p className="hidden md:block">
+            <span className="font-normal">Publisher:</span> {publisher}
+          </p>
+        )}
+        {publisherDate && (
+          <p className="hidden md:block">
+            <span className="font-normal">Publication Date:</span>{" "}
+            {formatPublicationDate(publisherDate)}
+          </p>
+        )}
       </div>
     </div>
   );
