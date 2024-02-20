@@ -87,10 +87,8 @@ export default async function BookPageContent({ user, bookId }: Props) {
 BookPageContent.Skeleton = function BookPageContentSkeleton() {
   return (
     <>
-      <div className="flex md:gap-8 gap-3 max-w-[900px] items-start">
-        <div className="flex flex-col gap-2 flex-[1.1_1_0] md:flex-[0_0_auto]">
-          <Skeleton className="max-w-[300px] md:h-[400px] h-[200px]" />
-        </div>
+      <div className="flex md:gap-8 gap-3 max-w-[900px] items-start w-full">
+        <Skeleton className="flex-[1.1_1_0] max-w-[300px] md:h-[400px] h-[200px]" />
         <div className="flex flex-col md:flex-1 flex-[2] gap-4">
           <BookInfo.Skeleton />
           <div className="hidden md:flex flex-col gap-4">

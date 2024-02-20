@@ -3,6 +3,16 @@ import { formatAuthors } from "../utils";
 describe("formatAuthors", () => {
   it.each([
     {
+      description: "returns an empty string if no authors are given",
+      authors: undefined as any,
+      result: "",
+    },
+    {
+      description: "returns an empty string if an empty array is given",
+      authors: [],
+      result: "",
+    },
+    {
       description: "return the name of the author if there is only one author",
       authors: ["a"],
       result: "a",
