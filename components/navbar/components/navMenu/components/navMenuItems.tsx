@@ -26,15 +26,6 @@ export default function NavMenuItems() {
           </Link>
         </SheetClose>
       ))}
-      <SheetClose asChild>
-        <Link
-          href={"https://github.com/MichaelMcCann1/LiveScoreboardV2"}
-          className="text-xl"
-          target="_blank"
-        >
-          GitHub
-        </Link>
-      </SheetClose>
     </nav>
   );
 }
