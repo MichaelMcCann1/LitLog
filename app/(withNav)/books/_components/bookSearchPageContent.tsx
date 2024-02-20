@@ -38,7 +38,7 @@ export default async function BookSearchPageContent({
   );
 }
 
-BookSearchPageContent.Skeleton = () => {
+BookSearchPageContent.Skeleton = function BookSearchPageContentSekeleton() {
   return (
     <div className="flex flex-col items-center gap-12 py-12 px-4">
       <Skeleton className="h-5 md:h-6 w-[300px]" />

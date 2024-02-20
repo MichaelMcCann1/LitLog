@@ -17,6 +17,6 @@ export default function BookDescription({ description }: Props) {
   );
 }
 
-BookDescription.Skeleton = () => {
+BookDescription.Skeleton = function BookDescriptionSkeleton() {
   return <Skeleton className="w-full h-[300px]" />;
 };

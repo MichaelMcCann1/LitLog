@@ -58,7 +58,7 @@ export default function BookBox({ book, shelfData, session }: Props) {
   );
 }
 
-BookBox.Skeleton = () => {
+BookBox.Skeleton = function BookBoxSkeleton() {
   return (
     <div className="flex w-full max-w-[800px] gap-4 border py-6 px-4 rounded">
       <div className="flex flex-col">

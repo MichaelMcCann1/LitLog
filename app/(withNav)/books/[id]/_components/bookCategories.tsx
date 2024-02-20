@@ -22,6 +22,6 @@ export default function BookCategories({ categories }: Props) {
   );
 }
 
-BookCategories.Skeleton = () => {
+BookCategories.Skeleton = function BookCategoriesSkeleton() {
   return <Skeleton className="w-full h-[200px]" />;
 };

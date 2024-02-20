@@ -83,7 +83,7 @@ export default async function BookPageContent({ user, bookId }: Props) {
   );
 }
 
-BookPageContent.Skeleton = () => {
+BookPageContent.Skeleton = function BookPageContentSkeleton() {
   return (
     <>
       <div className="flex md:gap-8 gap-3 max-w-[900px] items-start">

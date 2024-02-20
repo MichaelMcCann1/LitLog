@@ -56,7 +56,7 @@ export default function BookInfo({
   );
 }
 
-BookInfo.Skeleton = () => {
+BookInfo.Skeleton = function BookInfoSkeleton() {
   return (
     <div className="flex flex-col gap-1">
       <Skeleton className="h-7 max-w-[400px]" />
