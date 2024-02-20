@@ -1,3 +1,4 @@
+import NoUserAlert from "@/components/NoUserAlert/NoUserAlert";
 import BookBox from "@/components/bookBox/bookBox";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getBooksList } from "@/lib/actions/bookActions";
@@ -16,12 +17,20 @@ export default async function BookSearchPageContent({
   search,
 }: Props) {
   const [booksData, shelfData] = await Promise.all([
-    getBooksList(session?.user?.name, search),
-    getUsersBookshelves(session?.user?.name),
+    getBooksList(
+      session?.user?.name || process.env.DEMO_ACCOUNT_USERNAME,
+      search
+    ),
+    getUsersBookshelves(
+      session?.user?.name || process.env.DEMO_ACCOUNT_USERNAME
+    ),
   ]);
 
   return (
     <div className="flex flex-col items-center gap-12 py-12 px-4">
+      {!session && (
+        <NoUserAlert message="You are not logged in. Any books added or removed from a bookshelf will be applied to a demo account. Register to keep track of your books." />
+      )}
       <h1 className="text-xl md:text-3xl font-medium">
         {getSearchResultsText(search, booksData.length)}
       </h1>

@@ -31,8 +31,8 @@ export default function ShelfOrganizer({
     initialAssignedShelf
   );
   const [isPending, startTransition] = useTransition();
-  const username = user?.name;
-  const email = user?.email;
+  const username = user?.name
+  const email = user?.email
 
   return (
     <DropdownMenu>

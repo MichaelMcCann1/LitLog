@@ -1,3 +1,4 @@
+import NoUserAlert from "@/components/NoUserAlert/NoUserAlert";
 import BookBox from "@/components/bookBox/bookBox";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getBooksFromShelf } from "@/lib/actions/bookActions";
@@ -18,13 +19,27 @@ export default async function BookshelfPageContent({
   bookshelfId,
 }: Props) {
   const [shelfName, bookData, bookshelfData] = await Promise.all([
-    getBookShelfName(session?.user?.name, bookshelfId),
-    getBooksFromShelf(session?.user?.name, bookshelfId),
-    getUsersBookshelves(session?.user?.name),
+    getBookShelfName(
+      session?.user?.name || process.env.DEMO_ACCOUNT_USERNAME,
+      bookshelfId
+    ),
+    getBooksFromShelf(
+      session?.user?.name || process.env.DEMO_ACCOUNT_USERNAME,
+      bookshelfId
+    ),
+    getUsersBookshelves(
+      session?.user?.name || process.env.DEMO_ACCOUNT_USERNAME
+    ),
   ]);
 
   return (
     <div className="flex flex-col items-center gap-12 py-12 px-4">
+      {!session && (
+        <NoUserAlert
+          message="You are viewing a demo user's bookshelf. Register or log in to keep
+        track of your own bookshelf."
+        />
+      )}
       <h1 className="text-xl md:text-3xl font-medium">
         {shelfName?.shelf_name}
       </h1>

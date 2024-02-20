@@ -17,10 +17,10 @@ interface Props {
 export default async function BookPageContent({ user, bookId }: Props) {
   const [bookData, bookshelves] = await Promise.all([
     getGoogleBookData(bookId),
-    getUsersBookshelves(user?.name),
+    getUsersBookshelves(user?.name || process.env.DEMO_ACCOUNT_USERNAME),
   ]);
   const usersBookData = await getUsersBookData(
-    user?.name,
+    user?.name || process.env.DEMO_ACCOUNT_USERNAME,
     bookData.google_book_id
   );
 
@@ -37,7 +37,12 @@ export default async function BookPageContent({ user, bookId }: Props) {
             <ShelfOrganizer
               initialAssignedShelf={usersBookData?.shelf_name}
               bookshelves={bookshelves}
-              user={user}
+              user={
+                user || {
+                  name: process.env.DEMO_ACCOUNT_USERNAME,
+                  email: process.env.DEMO_ACCOUNT_EMAIL,
+                }
+              }
               bookData={bookData}
             />
           </div>
