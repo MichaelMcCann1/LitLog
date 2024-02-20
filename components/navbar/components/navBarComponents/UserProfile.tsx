@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import LogoutButton from "./logoutButton";
 import Image from "next/image";
-import { logoutButtonCallback } from "@/lib/actions";
+import { logoutButtonCallback } from "@/lib/actions/userActions";
 
 export default async function UserProfile() {
   const session = await auth();

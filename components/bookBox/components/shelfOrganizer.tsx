@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { addBookToShelf, removeFromShelf } from "@/lib/actions";
+import { addBookToShelf, removeFromShelf } from "@/lib/actions/bookActions";
 import { Book, Bookshelf } from "@/lib/createTables";
 import { ChevronDown } from "lucide-react";
 import { User } from "next-auth";

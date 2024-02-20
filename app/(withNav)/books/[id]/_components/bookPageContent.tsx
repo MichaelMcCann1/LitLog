@@ -1,5 +1,5 @@
 import ShelfOrganizer from "@/components/bookBox/components/shelfOrganizer";
-import { getUsersBookData, getUsersBookshelves } from "@/lib/actions";
+import { getUsersBookData } from "@/lib/actions/bookActions";
 import { getGoogleBookData } from "@/lib/googleBooksAPI";
 import React from "react";
 import BookInfo from "./bookInfo";
@@ -7,6 +7,7 @@ import BookDescription from "./bookDescription";
 import BookCategories from "./bookCategories";
 import { User } from "next-auth";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getUsersBookshelves } from "@/lib/actions/bookshelfActions";
 
 interface Props {
   user: User | undefined;

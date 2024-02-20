@@ -1,6 +1,7 @@
 import BookBox from "@/components/bookBox/bookBox";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getBooksList, getUsersBookshelves } from "@/lib/actions";
+import { getBooksList } from "@/lib/actions/bookActions";
+import { getUsersBookshelves } from "@/lib/actions/bookshelfActions";
 import { getSearchResultsText } from "@/lib/utils";
 import { Session } from "next-auth";
 import React from "react";

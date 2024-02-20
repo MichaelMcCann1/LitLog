@@ -1,9 +1,9 @@
 import React from "react";
 import { auth } from "@/auth";
-import { logoutButtonCallback } from "@/lib/actions";
 import LogoutButton from "./logoutButton";
 import Link from "next/link";
 import { SheetClose } from "@/components/ui/sheet";
+import { logoutButtonCallback } from "@/lib/actions/userActions";
 
 export default async function UserInfo() {
   const session = await auth();

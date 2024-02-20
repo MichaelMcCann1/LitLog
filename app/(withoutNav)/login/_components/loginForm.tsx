@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { logInUser } from "@/lib/actions";
+import { logInUser } from "@/lib/actions/userActions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import React, { useState, useTransition } from "react";

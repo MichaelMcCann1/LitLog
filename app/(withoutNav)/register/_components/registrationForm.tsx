@@ -15,8 +15,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { createUser } from "@/lib/actions";
 import Link from "next/link";
+import { createUser } from "@/lib/actions/userActions";
 
 export const registrationFormSchema = z
   .object({

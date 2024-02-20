@@ -1,6 +1,7 @@
-import { getUsersBooks, getUsersBookshelves } from "@/lib/actions";
+import { getUsersBooks } from "@/lib/actions/bookActions";
 import React from "react";
 import Bookshelf from "./bookshelf";
+import { getUsersBookshelves } from "@/lib/actions/bookshelfActions";
 
 interface Props {
   username: string | null | undefined;
