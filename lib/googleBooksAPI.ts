@@ -19,7 +19,7 @@ type GoogleBookData = Pick<
 export const getGoogleBooksList = async (search: string) => {
   if (!search) return [];
 
-  const booksListResponse = await fetch(`${ApiPath}?q=${search}`, {
+  const booksListResponse = await fetch(`${ApiPath}?q=${search}&maxResults=20`, {
     cache: "force-cache",
   });
   const data = await booksListResponse.json();
