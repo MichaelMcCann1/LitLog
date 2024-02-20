@@ -4,6 +4,7 @@ import ShelfOrganizer from "./components/shelfOrganizer";
 import { Session } from "next-auth";
 import { Book, Bookshelf } from "@/lib/createTables";
 import BookInfo from "@/app/(withNav)/books/[id]/_components/bookInfo";
+import { Skeleton } from "../ui/skeleton";
 
 interface Props {
   shelfData: Omit<Bookshelf, "username" | "email">[] | undefined;
@@ -56,3 +57,18 @@ export default function BookBox({ book, shelfData, session }: Props) {
     </div>
   );
 }
+
+BookBox.Skeleton = () => {
+  return (
+    <div className="flex w-full max-w-[800px] gap-4 border py-6 px-4 rounded">
+      <div className="flex flex-col">
+        <Skeleton className="w-[100px] min-w-[100px] md:w-[150px] md:min-w-[150px] h-[200px]" />
+      </div>
+      <div className="flex flex-col">
+        <BookInfo.Skeleton />
+        <Skeleton className="block sm:hidden h-10 w-[200px] ml-auto mt-3" />
+      </div>
+      <Skeleton className="hidden sm:block h-10 w-[200px] ml-auto" />
+    </div>
+  );
+};
