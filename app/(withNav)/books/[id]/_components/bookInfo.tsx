@@ -1,4 +1,5 @@
 import StarRating from "@/components/starRating/starRating";
+import { Skeleton } from "@/components/ui/skeleton";
 import { formatAuthors, formatPublicationDate } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
@@ -54,3 +55,18 @@ export default function BookInfo({
     </div>
   );
 }
+
+BookInfo.Skeleton = () => {
+  return (
+    <div className="flex flex-col gap-1">
+      <Skeleton className="h-7 max-w-[400px]" />
+      <Skeleton className="h-6 py-2 w-[200px]" />
+      <Skeleton className="h-4 w-[100px]" />
+      <div className="flex flex-col pt-2 gap-1">
+        <Skeleton className="h-4 w-[150px]" />
+        <Skeleton className="h-4 w-[150px]" />
+        <Skeleton className="h-4 w-[150px]" />
+      </div>
+    </div>
+  );
+};

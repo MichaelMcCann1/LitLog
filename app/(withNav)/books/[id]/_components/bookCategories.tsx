@@ -1,5 +1,6 @@
 import React from "react";
 import BookInfoSection from "./bookInfoSection";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Props {
   categories: string[];
@@ -20,3 +21,7 @@ export default function BookCategories({ categories }: Props) {
     </BookInfoSection>
   );
 }
+
+BookCategories.Skeleton = () => {
+  return <Skeleton className="w-full h-[200px]" />;
+};

@@ -47,6 +47,7 @@ export default function ShelfOrganizer({
           ?.filter((shelf) => shelf.shelf_name !== assignedShelf)
           ?.map((shelf) => (
             <DropdownMenuItem
+              className="cursor-pointer"
               key={shelf.shelf_id}
               disabled={!username || isPending}
               onClick={() => {

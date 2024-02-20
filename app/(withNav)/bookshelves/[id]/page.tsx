@@ -22,7 +22,7 @@ export default async function book({
   return (
     <div className="flex flex-col items-center gap-12 py-12 px-4">
       <h1 className="text-xl md:text-3xl font-medium">{shelfName?.shelf_name}</h1>
-      <div className="flex flex-col gap-4 items-center">
+      <div className="flex flex-col gap-4 items-center w-full">
         {bookData?.map((book) => (
           <BookBox
             key={book.book_id}
