@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Book } from "@/lib/createTables";
+import { times } from "lodash";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -36,12 +38,10 @@ export default function Bookshelf({ bookshelfData }: Props) {
                 key={book.google_book_id}
                 href={`/books/${book.google_book_id}`}
               >
-                <Image
+                <img
                   src={book.cover}
                   alt={book.title}
-                  width={128}
-                  height={204}
-                  className="shadow-lg"
+                  className="shadow-lg h-[200px]"
                 />
               </Link>
             ))}
@@ -56,3 +56,17 @@ export default function Bookshelf({ bookshelfData }: Props) {
     </div>
   );
 }
+
+Bookshelf.Skeleton = function BookshelfSekelton() {
+  return (
+    <div className="border border-gray-300 py-4 px-6 rounded-lg flex flex-col gap-8 max-w-[850px] items-center w-full">
+      <Skeleton className="w-[300px] h-5" />
+      <div className="flex gap-6 justify-center flex-wrap">
+        {times(5).map((e) => (
+          <Skeleton key={e} className="w-[120px] h-[200px]" />
+        ))}
+      </div>
+      <Skeleton className="w-[100px] h-10" />
+    </div>
+  );
+};
