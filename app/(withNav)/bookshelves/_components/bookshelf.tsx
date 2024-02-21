@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Book } from "@/lib/createTables";
 import { times } from "lodash";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
