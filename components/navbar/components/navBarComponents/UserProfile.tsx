@@ -20,7 +20,7 @@ export default async function UserProfile() {
           <Image src="/user-profile.svg" alt="User Profile" fill />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[200px]">
+      <DropdownMenuContent align="end" className="min-w-[200px]">
         <div className="px-4 py-2">
           <p className="font-medium">{session?.user?.name}</p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
