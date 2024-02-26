@@ -65,7 +65,7 @@ export default function RegistrationForm() {
   return (
     <Form {...form}>
       <form
-        className="flex flex-col w-[500px] border rounded-sm px-6 py-8 gap-4"
+        className="flex flex-col w-full max-w-[500px] sm:border rounded-sm px-6 py-8 gap-4"
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         {errorMessage && <p className="text-red-400">{errorMessage}</p>}
