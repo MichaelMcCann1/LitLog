@@ -19,9 +19,12 @@ type GoogleBookData = Pick<
 export const getGoogleBooksList = async (search: string) => {
   if (!search) return [];
 
-  const booksListResponse = await fetch(`${ApiPath}?q=${search}&maxResults=20`, {
-    cache: "force-cache",
-  });
+  const booksListResponse = await fetch(
+    `${ApiPath}?q=${search}&maxResults=20`,
+    {
+      cache: "force-cache",
+    }
+  );
   const data = await booksListResponse.json();
 
   if (!data?.items) {
@@ -40,7 +43,7 @@ export const getGoogleBooksList = async (search: string) => {
       categories: book?.volumeInfo?.categories,
       average_rating: book?.volumeInfo?.averageRating,
       ratings_count: book?.volumeInfo?.ratingsCount,
-      cover: book?.volumeInfo?.imageLinks?.thumbnail.replace('http', 'https'),
+      cover: book?.volumeInfo?.imageLinks?.thumbnail?.replace("http", "https"),
     } as GoogleBookData;
   });
 };
@@ -60,6 +63,8 @@ export const getGoogleBookData = async (id: string) => {
     categories: book?.volumeInfo?.categories,
     average_rating: book?.volumeInfo?.averageRating,
     ratings_count: book?.volumeInfo?.ratingsCount,
-    cover: book?.volumeInfo?.imageLinks?.small.replace('http', 'https'),
+    cover:
+      book?.volumeInfo?.imageLinks?.small?.replace("http", "https") ||
+      book?.volumeInfo?.imageLinks?.thumbnail?.replace("http", "https"),
   } as Book;
 };
