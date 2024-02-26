@@ -40,7 +40,7 @@ export const getGoogleBooksList = async (search: string) => {
       categories: book?.volumeInfo?.categories,
       average_rating: book?.volumeInfo?.averageRating,
       ratings_count: book?.volumeInfo?.ratingsCount,
-      cover: book?.volumeInfo?.imageLinks?.thumbnail,
+      cover: book?.volumeInfo?.imageLinks?.thumbnail.replace('http', 'https'),
     } as GoogleBookData;
   });
 };
@@ -60,6 +60,6 @@ export const getGoogleBookData = async (id: string) => {
     categories: book?.volumeInfo?.categories,
     average_rating: book?.volumeInfo?.averageRating,
     ratings_count: book?.volumeInfo?.ratingsCount,
-    cover: book?.volumeInfo?.imageLinks?.small,
+    cover: book?.volumeInfo?.imageLinks?.small.replace('http', 'https'),
   } as Book;
 };
