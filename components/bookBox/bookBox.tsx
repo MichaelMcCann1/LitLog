@@ -40,7 +40,12 @@ export default function BookBox({ book, shelfData, session }: Props) {
         <div className="block sm:hidden">
           <ShelfOrganizer
             bookshelves={shelfData}
-            user={session?.user}
+            user={
+              session?.user || {
+                name: process.env.DEMO_ACCOUNT_USERNAME,
+                email: process.env.DEMO_ACCOUNT_EMAIL,
+              }
+            }
             initialAssignedShelf={book.shelf_name}
             bookData={book}
           />

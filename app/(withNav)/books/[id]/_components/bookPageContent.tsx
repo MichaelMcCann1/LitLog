@@ -69,7 +69,12 @@ export default async function BookPageContent({ user, bookId }: Props) {
             <ShelfOrganizer
               initialAssignedShelf={usersBookData?.shelf_name}
               bookshelves={bookshelves}
-              user={user}
+              user={
+                user || {
+                  name: process.env.DEMO_ACCOUNT_USERNAME,
+                  email: process.env.DEMO_ACCOUNT_EMAIL,
+                }
+              }
               bookData={bookData}
             />
           </div>
