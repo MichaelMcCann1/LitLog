@@ -24,8 +24,6 @@ export default async function BookPageContent({ user, bookId }: Props) {
     bookData.google_book_id
   );
 
-  console.log(bookData.cover)
-
   return (
     <>
       <div className="flex md:gap-8 gap-3 max-w-[900px] items-start">
