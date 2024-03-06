@@ -5,6 +5,7 @@ import {
   getUsersTotalPageCount,
 } from "@/lib/actions/statsActions";
 import React from "react";
+import PageCountPieChart from "./PageCountPieChart";
 
 interface Props {
   username: string | null | undefined;
@@ -14,8 +15,6 @@ export default async function StatsPageContent({ username }: Props) {
   const bookCount = await getUsersCompletedBooksCount(username);
   const pageCount = await getUsersTotalPageCount(username);
   const pageDistribution = await getPageCountDistribution(username);
-
-  console.log(pageDistribution)
 
   return (
     <div className="flex flex-col gap-8">
@@ -29,6 +28,7 @@ export default async function StatsPageContent({ username }: Props) {
           <p className="text-4xl">{pageCount}</p>
         </div>
       </div>
+      <PageCountPieChart pageData={pageDistribution} />
     </div>
   );
 }

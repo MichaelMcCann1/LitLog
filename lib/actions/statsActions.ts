@@ -1,5 +1,11 @@
 import { sql } from "@vercel/postgres";
 
+export interface BookDistribution {
+  page_count_bucket: string;
+  book_count: string;
+  percentage: number;
+}
+
 export const getUsersCompletedBooksCount = async (
   username: string | null | undefined
 ) => {
@@ -47,11 +53,6 @@ export const getPageCountDistribution = async (
     return;
   }
 
-  interface BookDistribution {
-    page_count_bucket: string;
-    page_count: string;
-  }
-
   const { rows } = await sql<BookDistribution>`
   SELECT
     page_count_bucket,
@@ -60,10 +61,10 @@ export const getPageCountDistribution = async (
   FROM (
     SELECT
       CASE
-          WHEN CAST(page_count AS INTEGER) < 100 THEN '<100'
-          WHEN CAST(page_count AS INTEGER) BETWEEN 100 AND 299 THEN '100-299'
-          WHEN CAST(page_count AS INTEGER) BETWEEN 300 AND 499 THEN '300-499'
-          ELSE '500+ pages'
+          WHEN CAST(page_count AS INTEGER) < 100 THEN '< 100 Pages'
+          WHEN CAST(page_count AS INTEGER) BETWEEN 100 AND 299 THEN '100-299 Pages'
+          WHEN CAST(page_count AS INTEGER) BETWEEN 300 AND 499 THEN '300-499 Pages'
+          ELSE '500+ Pages'
       END AS page_count_bucket
     FROM books
     WHERE username = ${username}
