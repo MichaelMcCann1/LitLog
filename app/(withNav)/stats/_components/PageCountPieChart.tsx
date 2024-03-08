@@ -1,11 +1,30 @@
 "use client";
 
 import React from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  PointElement,
+  LineElement,
+} from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { BookDistribution } from "@/lib/actions/statsActions";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  PointElement,
+  LineElement,
+);
 
 interface Props {
   pageData: BookDistribution[] | undefined;
@@ -29,5 +48,10 @@ export default function PageCountPieChart({ pageData }: Props) {
     ],
   };
 
-  return <Pie data={data} />;
+  return (
+    <div className="flex flex-col gap-6 border items-center p-4">
+      <p className="text-xl font-medium">Page Count Distribution</p>
+      <Pie data={data} />
+    </div>
+  );
 }

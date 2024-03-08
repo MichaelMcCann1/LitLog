@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const formatAuthors = (authors: string[]) => {
-  if (!authors || !authors.length) return ''
+  if (!authors || !authors.length) return "";
   if (authors.length === 1) return authors[0];
   if (authors.length === 2) return `${authors[0]} and ${authors[1]}`;
 
@@ -34,8 +34,23 @@ export const formatPublicationDate = (date: string) => {
   return date;
 };
 
-export const getSearchResultsText = (query: string | undefined, dataLength: number) => {
+export const getSearchResultsText = (
+  query: string | undefined,
+  dataLength: number
+) => {
   if (!query) return "Search All Books";
   if (dataLength) return `Search results for ${query}`;
   return `No results for ${query}`;
+};
+
+export const getPublicationYear = (date: string) => {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    return DateTime.fromFormat(date, "y-LL-dd").year;
+  }
+  if (/^\d{4}-\d{2}$/.test(date)) {
+    return DateTime.fromFormat(date, "y-LL").year;
+  }
+  if (/^\d{4}$/.test(date)) {
+    return Number(date);
+  }
 };

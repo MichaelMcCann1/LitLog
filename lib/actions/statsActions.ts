@@ -1,4 +1,7 @@
 import { sql } from "@vercel/postgres";
+import { Book } from "../createTables";
+import { getPublicationYear } from "../utils";
+import { countBy } from "lodash";
 
 export interface BookDistribution {
   page_count_bucket: string;
@@ -73,4 +76,40 @@ export const getPageCountDistribution = async (
   `;
 
   return rows;
+};
+
+export const getPublicationDateDistribution = async (
+  username: string | null | undefined
+) => {
+  if (!username) {
+    return;
+  }
+
+  const { rows } = await sql<Pick<Book, "publisher_date">>`
+    SELECT publisher_date
+    FROM books
+    WHERE username = ${username}
+  `;
+
+  const yearsList = rows.map((row) => getPublicationYear(row.publisher_date));
+  const filteredYearsList = yearsList.filter((year) => year) as number[];
+  return countBy(filteredYearsList);
+};
+
+export const getAuthorsDistribution = async (
+  username: string | null | undefined
+) => {
+  if (!username) {
+    return;
+  }
+
+  const { rows } = await sql<Pick<Book, "authors">>`
+    SELECT authors
+    FROM books
+    WHERE username = ${username}
+  `;
+
+  const authorsList = rows.flatMap((row) => row.authors);
+
+  return countBy(authorsList);
 };

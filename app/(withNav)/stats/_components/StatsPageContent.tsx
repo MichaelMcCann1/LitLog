@@ -1,11 +1,15 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import {
+  getAuthorsDistribution,
   getPageCountDistribution,
+  getPublicationDateDistribution,
   getUsersCompletedBooksCount,
   getUsersTotalPageCount,
 } from "@/lib/actions/statsActions";
 import React from "react";
 import PageCountPieChart from "./PageCountPieChart";
+import PublicationYearBarChart from "./PublicationYearBarChart";
+import AuthorsBarChart from "./AuthorsBarChart";
 
 interface Props {
   username: string | null | undefined;
@@ -15,6 +19,8 @@ export default async function StatsPageContent({ username }: Props) {
   const bookCount = await getUsersCompletedBooksCount(username);
   const pageCount = await getUsersTotalPageCount(username);
   const pageDistribution = await getPageCountDistribution(username);
+  const publicationYears = await getPublicationDateDistribution(username);
+  const authorsDistribution = await getAuthorsDistribution(username);
 
   return (
     <div className="flex flex-col gap-8">
@@ -29,6 +35,8 @@ export default async function StatsPageContent({ username }: Props) {
         </div>
       </div>
       <PageCountPieChart pageData={pageDistribution} />
+      {authorsDistribution && <AuthorsBarChart authors={authorsDistribution} />}
+      <PublicationYearBarChart yearData={publicationYears} />
     </div>
   );
 }
