@@ -3,6 +3,7 @@
 import { Dictionary } from "lodash";
 import React from "react";
 import { Bar } from "react-chartjs-2";
+import StatWrapper from "./StatWrapper";
 
 interface Props {
   authors: Dictionary<number>;
@@ -22,5 +23,9 @@ export default function AuthorsBarChart({ authors }: Props) {
     ],
   };
 
-  return <Bar data={data} />;
+  return (
+    <StatWrapper title="Most Read Authors">
+      <Bar data={data} />
+    </StatWrapper>
+  );
 }

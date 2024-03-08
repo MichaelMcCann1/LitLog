@@ -14,6 +14,7 @@ import {
 } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { BookDistribution } from "@/lib/actions/statsActions";
+import StatWrapper from "./StatWrapper";
 
 ChartJS.register(
   ArcElement,
@@ -23,7 +24,7 @@ ChartJS.register(
   LinearScale,
   BarElement,
   PointElement,
-  LineElement,
+  LineElement
 );
 
 interface Props {
@@ -49,9 +50,8 @@ export default function PageCountPieChart({ pageData }: Props) {
   };
 
   return (
-    <div className="flex flex-col gap-6 border items-center p-4">
-      <p className="text-xl font-medium">Page Count Distribution</p>
+    <StatWrapper title="Page Count Distribution">
       <Pie data={data} />
-    </div>
+    </StatWrapper>
   );
 }

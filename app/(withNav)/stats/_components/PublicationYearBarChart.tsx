@@ -3,6 +3,7 @@
 import { Dictionary } from "lodash";
 import React from "react";
 import { Scatter } from "react-chartjs-2";
+import StatWrapper from "./StatWrapper";
 
 export const options = {
   scales: {
@@ -21,16 +22,20 @@ export default function PublicationYearBarChart({ yearData }: Props) {
     datasets: [
       {
         label: "Publication Year",
-        data: Object.keys(yearData as object).map(year => {
+        data: Object.keys(yearData as object).map((year) => {
           return {
             x: Number(year),
-            y: yearData?.[Number(year)]
-          }
+            y: yearData?.[Number(year)],
+          };
         }),
         backgroundColor: "rgba(255, 99, 132, 1)",
       },
     ],
   };
 
-  return <Scatter data={data} options={options} />;
+  return (
+    <StatWrapper title="Publication Year">
+      <Scatter data={data} options={options} />
+    </StatWrapper>
+  );
 }
