@@ -4,11 +4,33 @@ import { Dictionary } from "lodash";
 import React from "react";
 import { Scatter } from "react-chartjs-2";
 import StatWrapper from "./StatWrapper";
+import { TooltipItem } from "chart.js";
 
-export const options = {
+const options = {
+  plugins: {
+    legend: {
+      display: false,
+    },
+    tooltip: {
+      displayColors: false,
+      callbacks: {
+        label: (context: TooltipItem<"scatter">) => {
+          return `Year: ${context.parsed.x}  Books: ${context.parsed.y}`;
+        },
+      },
+    },
+  },
   scales: {
     y: {
       beginAtZero: true,
+      ticks: {
+        precision: 0,
+      },
+    },
+    x: {
+      ticks: {
+        callback: (value: string | number) => value,
+      },
     },
   },
 };
@@ -28,7 +50,7 @@ export default function PublicationYearBarChart({ yearData }: Props) {
             y: yearData?.[Number(year)],
           };
         }),
-        backgroundColor: "rgba(255, 99, 132, 1)",
+        backgroundColor: "rgb(2, 132, 199)",
       },
     ],
   };

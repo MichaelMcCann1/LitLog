@@ -5,27 +5,46 @@ import React from "react";
 import { Bar } from "react-chartjs-2";
 import StatWrapper from "./StatWrapper";
 
+const options = {
+  plugins: {
+    legend: {
+      display: false,
+    },
+    tooltip: {
+      displayColors: false,
+    },
+  },
+  scales: {
+    y: {
+      beginAtZero: true,
+      ticks: {
+        precision: 0,
+      },
+    },
+  },
+};
+
 interface Props {
   authors: Dictionary<number>;
 }
 
 export default function AuthorsBarChart({ authors }: Props) {
-  const labels = Object.keys(authors);
+  const labels = Object.keys(authors).slice(0, 9);
 
   const data = {
     labels,
     datasets: [
       {
-        label: "Authors",
-        data: Object.values(authors),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        label: "Books",
+        data: Object.values(authors).slice(0, 9),
+        backgroundColor: "rgb(2, 132, 199)",
       },
     ],
   };
 
   return (
     <StatWrapper title="Most Read Authors">
-      <Bar data={data} />
+      <Bar options={options} data={data} />
     </StatWrapper>
   );
 }
