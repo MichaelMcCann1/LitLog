@@ -21,7 +21,7 @@ export default async function StatsPageContent({ username }: Props) {
   const authorsDistribution = await getAuthorsDistribution(username);
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-[700px] px-4">
+    <div className="flex flex-col gap-8 w-full max-w-[700px]">
       <div className="flex gap-8">
         <TotalBooks username={username} />
         <TotalPages username={username} />

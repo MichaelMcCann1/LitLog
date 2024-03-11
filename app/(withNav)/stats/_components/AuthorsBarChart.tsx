@@ -16,6 +16,10 @@ const options = {
   },
   scales: {
     y: {
+      title: {
+        display: true,
+        text: "Books Read",
+      },
       beginAtZero: true,
       ticks: {
         precision: 0,

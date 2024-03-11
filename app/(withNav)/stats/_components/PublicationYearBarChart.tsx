@@ -22,12 +22,20 @@ const options = {
   },
   scales: {
     y: {
+      title: {
+        display: true,
+        text: 'Books Read'
+      },
       beginAtZero: true,
       ticks: {
         precision: 0,
       },
     },
     x: {
+      title: {
+        display: true,
+        text: 'Publication Year'
+      },
       ticks: {
         callback: (value: string | number) => value,
       },
