@@ -13,6 +13,11 @@ const options = {
     tooltip: {
       displayColors: false,
     },
+    datalabels: {
+      labels: {
+        title: null,
+      },
+    },
   },
   scales: {
     y: {

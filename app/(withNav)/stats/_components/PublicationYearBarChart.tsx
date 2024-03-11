@@ -19,6 +19,11 @@ const options = {
         },
       },
     },
+    datalabels: {
+      labels: {
+        title: null
+      }
+    }
   },
   scales: {
     y: {
