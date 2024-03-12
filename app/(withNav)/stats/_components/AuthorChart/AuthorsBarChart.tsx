@@ -3,7 +3,7 @@
 import { Dictionary } from "lodash";
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import StatWrapper from "./StatWrapper";
+import StatWrapper from "../StatWrapper";
 
 const options = {
   plugins: {

@@ -3,7 +3,7 @@
 import { Dictionary } from "lodash";
 import React from "react";
 import { Scatter } from "react-chartjs-2";
-import StatWrapper from "./StatWrapper";
+import StatWrapper from "../StatWrapper";
 import { TooltipItem } from "chart.js";
 
 const options = {
@@ -21,15 +21,15 @@ const options = {
     },
     datalabels: {
       labels: {
-        title: null
-      }
-    }
+        title: null,
+      },
+    },
   },
   scales: {
     y: {
       title: {
         display: true,
-        text: 'Books Read'
+        text: "Books Read",
       },
       beginAtZero: true,
       ticks: {
@@ -39,7 +39,7 @@ const options = {
     x: {
       title: {
         display: true,
-        text: 'Publication Year'
+        text: "Publication Year",
       },
       ticks: {
         callback: (value: string | number) => value,

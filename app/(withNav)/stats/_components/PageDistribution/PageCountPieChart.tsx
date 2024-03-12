@@ -14,7 +14,7 @@ import {
 } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { BookDistribution } from "@/lib/actions/statsActions";
-import StatWrapper from "./StatWrapper";
+import StatWrapper from "../StatWrapper";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(
