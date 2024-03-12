@@ -11,7 +11,7 @@ export default async function page() {
   const username = session?.user?.name || process.env.DEMO_ACCOUNT_USERNAME;
 
   return (
-    <div className="flex flex-col gap-20 items-center py-10 px-4">
+    <div className="flex flex-col gap-10 items-center py-10 px-4">
       {!session && (
         <NoUserAlert message="You are viewing the reading stats for a demo user. Register or log in to see your personal reading stats." />
       )}

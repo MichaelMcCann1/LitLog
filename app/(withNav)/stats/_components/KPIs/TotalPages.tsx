@@ -9,5 +9,9 @@ interface Props {
 export default async function TotalPages({ username }: Props) {
   const pageCount = await getUsersTotalPageCount(username);
 
+  if (!pageCount) {
+    return <></>
+  }
+
   return <KpiBox title="Total Pages Read" value={Number(pageCount)} />;
 }

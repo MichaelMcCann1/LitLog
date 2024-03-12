@@ -2,6 +2,7 @@ import { getPublicationDateDistribution } from "@/lib/actions/statsActions";
 import React from "react";
 import PublicationYearBarChart from "./PublicationYearBarChart";
 import { Skeleton } from "@/components/ui/skeleton";
+import { isEmpty } from "lodash";
 
 interface Props {
   username: string | null | undefined;
@@ -10,13 +11,11 @@ interface Props {
 export default async function PublicationYear({ username }: Props) {
   const publicationYears = await getPublicationDateDistribution(username);
 
-  return (
-    <>
-      {publicationYears && (
-        <PublicationYearBarChart yearData={publicationYears} />
-      )}
-    </>
-  );
+  if (!publicationYears || isEmpty(publicationYears)) {
+    return <></>;
+  }
+
+  return <PublicationYearBarChart yearData={publicationYears} />;
 }
 
 PublicationYear.Skeleton = function PublicationYearSkeleton() {

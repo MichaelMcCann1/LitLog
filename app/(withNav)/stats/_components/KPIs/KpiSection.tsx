@@ -9,7 +9,7 @@ interface Props {
 
 export default function KpiSection({ username }: Props) {
   return (
-    <div className="flex gap-6">
+    <div className="flex gap-6 justify-center">
       <Suspense fallback={<KpiBox.Skeleton />}>
         <TotalBooks username={username} />
       </Suspense>
