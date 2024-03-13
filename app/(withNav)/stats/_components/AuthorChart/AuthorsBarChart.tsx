@@ -38,14 +38,24 @@ interface Props {
 }
 
 export default function AuthorsBarChart({ authors }: Props) {
-  const labels = Object.keys(authors).slice(0, 9);
+  const formattedData = Object.keys(authors)
+    .map((author) => {
+      return {
+        label: author,
+        count: authors[author],
+      };
+    })
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 10);
+
+  const labels = formattedData.map((element) => element.label);
 
   const data = {
     labels,
     datasets: [
       {
         label: "Books",
-        data: Object.values(authors).slice(0, 9),
+        data: formattedData.map((element) => element.count),
         backgroundColor: "rgb(2, 132, 199)",
       },
     ],
