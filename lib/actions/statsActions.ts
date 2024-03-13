@@ -70,7 +70,7 @@ export const getPageCountDistribution = async (
           ELSE '500+ Pages'
       END AS page_count_bucket
     FROM books
-    WHERE username = ${username}
+    WHERE username = ${username} AND shelf_name = 'Read'
   ) as subquery
   GROUP BY page_count_bucket
   `;
@@ -88,7 +88,7 @@ export const getPublicationDateDistribution = async (
   const { rows } = await sql<Pick<Book, "publisher_date">>`
     SELECT publisher_date
     FROM books
-    WHERE username = ${username}
+    WHERE username = ${username} AND shelf_name = 'Read'
   `;
 
   const yearsList = rows.map((row) => getPublicationYear(row.publisher_date));
@@ -106,7 +106,7 @@ export const getAuthorsDistribution = async (
   const { rows } = await sql<Pick<Book, "authors">>`
     SELECT authors
     FROM books
-    WHERE username = ${username}
+    WHERE username = ${username} AND shelf_name = 'Read'
   `;
 
   const authorsList = rows.flatMap((row) => row.authors);
