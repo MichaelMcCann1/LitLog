@@ -71,7 +71,7 @@ export const getPageCountDistribution = async (
       END AS page_count_bucket
     FROM books
     WHERE username = ${username} AND shelf_name = 'Read'
-  ) as subquery
+  ) as bucketed_books
   GROUP BY page_count_bucket
   `;
 
@@ -96,6 +96,8 @@ export const getPublicationDateDistribution = async (
   return countBy(filteredYearsList);
 };
 
+export type AuthorDistribution = Pick<Book, "authors"> & { count: string };
+
 export const getAuthorsDistribution = async (
   username: string | null | undefined
 ) => {
@@ -103,13 +105,17 @@ export const getAuthorsDistribution = async (
     return;
   }
 
-  const { rows } = await sql<Pick<Book, "authors">>`
-    SELECT authors
+  const { rows } = await sql<AuthorDistribution>`
+  SELECT authors, COUNT(*) as count
+  FROM (
+    SELECT UNNEST(authors) AS authors
     FROM books
     WHERE username = ${username} AND shelf_name = 'Read'
-  `;
+  ) as unnested_authors
+  GROUP BY authors
+  ORDER BY count DESC
+  LIMIT 10
+`;
 
-  const authorsList = rows.flatMap((row) => row.authors);
-
-  return countBy(authorsList);
+  return rows;
 };

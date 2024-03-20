@@ -1,9 +1,9 @@
 "use client";
 
-import { Dictionary } from "lodash";
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import StatWrapper from "../StatWrapper";
+import { AuthorDistribution } from "@/lib/actions/statsActions";
 
 const options = {
   plugins: {
@@ -34,28 +34,18 @@ const options = {
 };
 
 interface Props {
-  authors: Dictionary<number>;
+  authors: AuthorDistribution[];
 }
 
 export default function AuthorsBarChart({ authors }: Props) {
-  const formattedData = Object.keys(authors)
-    .map((author) => {
-      return {
-        label: author,
-        count: authors[author],
-      };
-    })
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 10);
-
-  const labels = formattedData.map((element) => element.label);
+  const labels = authors.map((element) => element.authors);
 
   const data = {
     labels,
     datasets: [
       {
         label: "Books",
-        data: formattedData.map((element) => element.count),
+        data: authors.map((element) => element.count),
         backgroundColor: "rgb(2, 132, 199)",
       },
     ],
